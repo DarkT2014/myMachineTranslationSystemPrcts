@@ -251,7 +251,7 @@ class TranslateEnzhWmt64k(translate.TranslateProblem):
 
 
 @registry.register_problem
-class TranslateEnzhWmt128k(TranslateEnzhWmt32k):
+class TranslateEnzhWmt128k(TranslateEnzhWmt64k):
   """Problem spec for WMT En-Zh translation.
 
   This is far from being the real WMT17 task - only toyset here
