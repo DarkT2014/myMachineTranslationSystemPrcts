@@ -158,7 +158,7 @@ def get_filename(dataset):
 
 
 @registry.register_problem
-class TranslateEnzhWmt32k(translate.TranslateProblem):
+class TranslateEnzhWmt64k(translate.TranslateProblem):
   """Problem spec for WMT En-Zh translation.
 
   Attempts to use full training dataset, which needs website
@@ -179,7 +179,7 @@ class TranslateEnzhWmt32k(translate.TranslateProblem):
 
   @property
   def approx_vocab_size(self):
-    return 2**15  # 32k
+    return 2**16  # 64k
 
   @property
   def source_vocab_name(self):
@@ -251,7 +251,7 @@ class TranslateEnzhWmt32k(translate.TranslateProblem):
 
 
 @registry.register_problem
-class TranslateEnzhWmt8k(TranslateEnzhWmt32k):
+class TranslateEnzhWmt128k(TranslateEnzhWmt32k):
   """Problem spec for WMT En-Zh translation.
 
   This is far from being the real WMT17 task - only toyset here
@@ -259,7 +259,7 @@ class TranslateEnzhWmt8k(TranslateEnzhWmt32k):
 
   @property
   def approx_vocab_size(self):
-    return 2**13  # 8192
+    return 2**17  # 128k
 
   @property
   def dataset_splits(self):
