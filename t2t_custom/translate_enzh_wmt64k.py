@@ -223,14 +223,14 @@ class TranslateEnzhWmt64k(translate.TranslateProblem):
         self.source_vocab_name,
         self.approx_vocab_size,
         source_datasets,
-        file_byte_budget=1e8)
+        file_byte_budget=1e9)
     target_vocab = generator_utils.get_or_generate_vocab(
         data_dir,
         tmp_dir,
         self.target_vocab_name,
         self.approx_vocab_size,
         target_datasets,
-        file_byte_budget=1e8)
+        file_byte_budget=1e9)
     tag = "train" if train else "dev"
     filename_base = "wmt_enzh_%sk_tok_%s" % (self.approx_vocab_size, tag)
     data_path = translate.compile_data(tmp_dir, datasets, filename_base)
@@ -250,30 +250,30 @@ class TranslateEnzhWmt64k(translate.TranslateProblem):
     }
 
 
-@registry.register_problem
-class TranslateEnzhWmt128k(TranslateEnzhWmt64k):
-  """Problem spec for WMT En-Zh translation.
+# @registry.register_problem
+# class TranslateEnzhWmt128k(TranslateEnzhWmt64k):
+#   """Problem spec for WMT En-Zh translation.
 
-  This is far from being the real WMT17 task - only toyset here
-  """
+#   This is far from being the real WMT17 task - only toyset here
+#   """
 
-  @property
-  def approx_vocab_size(self):
-    return 2**17  # 128k
+#   @property
+#   def approx_vocab_size(self):
+#     return 2**17  # 128k
 
-  @property
-  def dataset_splits(self):
-    return [
-        {
-            "split": problem.DatasetSplit.TRAIN,
-            "shards": 10,  # this is a small dataset
-        },
-        {
-            "split": problem.DatasetSplit.EVAL,
-            "shards": 1,
-        }
-    ]
+#   @property
+#   def dataset_splits(self):
+#     return [
+#         {
+#             "split": problem.DatasetSplit.TRAIN,
+#             "shards": 10,  # this is a small dataset
+#         },
+#         {
+#             "split": problem.DatasetSplit.EVAL,
+#             "shards": 1,
+#         }
+#     ]
 
-  def get_training_dataset(self, tmp_dir):
-    """Uses only News Commentary Dataset for training."""
-    return _NC_TRAIN_DATASETS
+#   def get_training_dataset(self, tmp_dir):
+#     """Uses only News Commentary Dataset for training."""
+#     return _NC_TRAIN_DATASETS
