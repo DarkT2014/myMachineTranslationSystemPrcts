@@ -157,8 +157,8 @@ def get_filename(dataset):
 
 
 @registry.register_problem
-class TranslateEnjpWmt32k(translate.TranslateProblem):
-  """Problem spec for WMT En-Jp translation.
+class TranslateEnzhWmt32k(translate.TranslateProblem):
+  """Problem spec for WMT En-Zh translation.
 
   Attempts to use full training dataset, which needs website
   registration and downloaded manually from official sources:
@@ -186,7 +186,7 @@ class TranslateEnjpWmt32k(translate.TranslateProblem):
 
   @property
   def target_vocab_name(self):
-    return "%s.jp" % self.vocab_filename
+    return "%s.zh" % self.vocab_filename
 
   def get_training_dataset(self, tmp_dir):
     """UN Parallel Corpus and CWMT Corpus need to be downloaded manually.
@@ -233,7 +233,7 @@ class TranslateEnjpWmt32k(translate.TranslateProblem):
         file_byte_budget=1e8,
         max_subtoken_length=self.max_subtoken_length)
     tag = "train" if train else "dev"
-    filename_base = "wmt_enjp_%sk_tok_%s" % (self.approx_vocab_size, tag)
+    filename_base = "wmt_enzh_%sk_tok_%s" % (self.approx_vocab_size, tag)
     data_path = translate.compile_data(tmp_dir, datasets, filename_base)
     return text_problems.text2text_generate_encoded(
         text_problems.text2text_txt_iterator(data_path + ".lang1",
@@ -252,8 +252,8 @@ class TranslateEnjpWmt32k(translate.TranslateProblem):
 
 
 @registry.register_problem
-class TranslateEnjpWmt8k(TranslateEnjpWmt32k):
-  """Problem spec for WMT En-Jp translation.
+class TranslateEnzhWmt8k(TranslateEnzhWmt32k):
+  """Problem spec for WMT En-Zh translation.
 
   This is far from being the real WMT17 task - only toyset here
   """
